@@ -17,3 +17,8 @@ logging:
     ## %p:日志级别 %m:具体内容 %n:换行 还有替他的
     console: '%p%m%n'
 
+# mybatis-plus 配置
+mybatis-plus:
+  # mapper.xml文件扫描
+  mapper-locations: classpath*:/mapper/*Mapper.xml
+

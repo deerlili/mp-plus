@@ -1,5 +1,6 @@
 package com.deerlili.mp.entity;
 
+import com.baomidou.mybatisplus.annotation.SqlCondition;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -20,8 +21,9 @@ public class User {
 
     @TableId
     private Long id;
-    @TableField("name")
+    @TableField(value = "name",condition = SqlCondition.LIKE)
     private String userName;
+    @TableField(condition = "%s&lt;#{%s}")
     private Integer age;
     private String email;
     private Long managerId;
