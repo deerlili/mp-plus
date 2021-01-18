@@ -14,7 +14,7 @@ logging:
     com.deerlili.mp.dao: trace
   ## 日志输出格式
   pattern:
-    ## %p:日志级别 %m:具体内容 %n:换行 还有替他的
+    ## %p:日志级别 %m:具体内容 %n:换行 还有其他的
     console: '%p%m%n'
 
 # mybatis-plus 配置
