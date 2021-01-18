@@ -1,3 +1,6 @@
+server:
+  port: 8080
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -5,11 +8,27 @@ spring:
     username: root
     password: 123456
 
+  # 邮箱配置
+  mail:
+    host: smtp.qq.com
+    port: 25
+    username: deerlili@qq.com
+    password: setxinubmszvhjah
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+        socketFactory:
+          class: javax.net.ssl.SSLSocketFactory
+
 ## 日志输出
 logging:
   level:
     ## 根日志
-    root: warn
+    root: warn # info
     ## trace:日志最低级别
     com.deerlili.mp.dao: trace
   ## 日志输出格式
@@ -20,5 +39,12 @@ logging:
 # mybatis-plus 配置
 mybatis-plus:
   # mapper.xml文件扫描
-  mapper-locations: classpath*:/mapper/*Mapper.xml
+  mapper-locations: classpath*:/mapper/mp/*Mapper.xml
 
+#配置swagger登陆验证
+swagger:
+  production: false
+  basic:
+    enable: true
+    username: admin
+    password: 123456
