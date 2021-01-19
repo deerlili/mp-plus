@@ -1,9 +1,6 @@
 package com.deerlili.mp.entity;
 
-import com.baomidou.mybatisplus.annotation.SqlCondition;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -28,6 +25,10 @@ public class User {
     private String email;
     private Long managerId;
     private LocalDateTime createTime;
+    private LocalDateTime updateTime;
+    // 逻辑删除：默认（0：未删除，1：删除）
+    @TableLogic
+    private Integer status;
     /**
      * 用于保存一些程序调用或者组装的数据
      * 在数据中没有对应的字段

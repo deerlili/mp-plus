@@ -8,27 +8,11 @@ spring:
     username: root
     password: 123456
 
-  # 邮箱配置
-  mail:
-    host: smtp.qq.com
-    port: 25
-    username: deerlili@qq.com
-    password: setxinubmszvhjah
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-            required: true
-        socketFactory:
-          class: javax.net.ssl.SSLSocketFactory
-
 ## 日志输出
 logging:
   level:
     ## 根日志
-    root: warn # info
+    root: warn # info warn
     ## trace:日志最低级别
     com.deerlili.mp.dao: trace
   ## 日志输出格式

@@ -47,6 +47,8 @@ public class CodeGenerator {
         gc.setOpen(false);
         // 实体属性 Swagger2 注解
         gc.setSwagger2(true);
+        // 自定义文件命名，注意 %s 会自动填充表实体属性！
+        // gc.setMapperName("%sMapper");
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
@@ -63,6 +65,7 @@ public class CodeGenerator {
         //pc.setModuleName(scanner("模块名"));
         pc.setModuleName("mp");
         pc.setParent("com.deerlili");
+        pc.setMapper("dao");
         mpg.setPackageInfo(pc);
 
         // 自定义配置
@@ -95,10 +98,11 @@ public class CodeGenerator {
         TemplateConfig templateConfig = new TemplateConfig();
 
         // 配置自定义输出模板
-        //指定自定义模板路径，会根据使用的模板引擎自动识别
+        // 指定自定义模板路径，会根据使用的模板引擎自动识别
         // templateConfig.setEntity(null);
         // templateConfig.setService(null);
         // templateConfig.setController(null);
+
         templateConfig.setXml(null);
         mpg.setTemplate(templateConfig);
 
@@ -112,10 +116,12 @@ public class CodeGenerator {
         // 公共父类
         // strategy.setSuperControllerClass("你自己的父类控制器,没有就不用设置!");
         // 写于父类中的公共字段
-        strategy.setSuperEntityColumns("id");
+        // strategy.setSuperEntityColumns("id");
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
         strategy.setControllerMappingHyphenStyle(true);
-        strategy.setTablePrefix(pc.getModuleName() + "_");
+        // 去掉表中前缀
+        //strategy.setTablePrefix(pc.getModuleName() + "_");
+        strategy.setTablePrefix("t_");
         mpg.setStrategy(strategy);
         mpg.execute();
     }

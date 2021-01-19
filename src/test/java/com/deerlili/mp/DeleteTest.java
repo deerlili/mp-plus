@@ -30,7 +30,7 @@ public class DeleteTest {
 
     @Test
     public void deleteById() {
-        int i = userMapper.deleteById(1350294244945870850L);
+        int i = userMapper.deleteById(9L);
         System.out.println("删除记录数：" + i);
     }
 
