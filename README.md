@@ -2,7 +2,10 @@
 项目基本模板
 
 # 相关技术
-MyBatis-plus
-swagger
+- Spring-Boot
+- MyBatis-plus
+- Swagger
+- SpringSecurity
+- JWT
 
 

@@ -27,10 +27,9 @@ public class InsertTest {
     @Test
     public void insert() {
         User user = new User();
-        user.setUserName("小器");
+        user.setUserName("小王");
         user.setAge(23);
         user.setManagerId(2L);
-        user.setCreateTime(LocalDateTime.now());
         int inserts = userMapper.insert(user);
         System.out.println("影响记录数："+inserts);
     }

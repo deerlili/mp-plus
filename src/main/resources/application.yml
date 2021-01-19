@@ -12,7 +12,7 @@ spring:
 logging:
   level:
     ## 根日志
-    root: warn # info warn
+    root: info # info warn
     ## trace:日志最低级别
     com.deerlili.mp.dao: trace
   ## 日志输出格式
@@ -32,3 +32,12 @@ swagger:
     enable: true
     username: admin
     password: 123456
+#jwt
+jwt:
+  header: Authorization
+  # 令牌前缀
+  token-start-with: Bearer
+  # 使用Base64对该令牌进行编码,制定您的密钥
+  base64-secret: 78JSMN2378JSMN23
+  # 令牌过期时间 此处单位/毫秒
+  token-validity-in-seconds: 14400000
