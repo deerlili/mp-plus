@@ -1,9 +1,9 @@
 package com.deerlili.mp.filter;
 
 import com.alibaba.fastjson.JSON;
-import com.deerlili.mp.entity.JwtUser;
-import com.deerlili.mp.entity.LoginUser;
-import com.deerlili.mp.entity.ReturnT;
+import com.deerlili.mp.dto.JwtUser;
+import com.deerlili.mp.dto.LoginUser;
+import com.deerlili.mp.dto.ReturnT;
 import com.deerlili.mp.util.JwtTokenUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +24,18 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *  该拦截器用于获取用户登录的信息
+ *  只需创建一个token并调用authenticationManager.authenticate()
+ *  让spring-security去进行验证就可以了
+ *  不用自己查数据库再对比密码了，这一步交给spring去操作
+ *
+ * 验证用户名密码正确后，生成一个token，并将token返回给客户端
+ * 该类继承自UsernamePasswordAuthenticationFilter，重写了其中的2个方法 ,
+ * attemptAuthentication：接收并解析用户凭证。
+ * successfulAuthentication：用户成功登录后，这个方法会被调用，我们在这个方法里生成token并返回。
+ */
+
 @Slf4j
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -36,13 +48,12 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request,
-                                                HttpServletResponse response) throws AuthenticationException {
-
+    public Authentication attemptAuthentication(
+            HttpServletRequest request,HttpServletResponse response) throws AuthenticationException {
         // 从输入流中获取到登录的信息
         try {
-            LoginUser loginUser = new ObjectMapper()
-                    .readValue(request.getInputStream(), LoginUser.class);
+            LoginUser loginUser =
+                    new ObjectMapper().readValue(request.getInputStream(), LoginUser.class);
 
             rememberMe.set(loginUser.getRememberMe());
             return authenticationManager.authenticate(
@@ -57,10 +68,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     // 成功验证后调用的方法
     // 如果验证成功，就生成token并返回
     @Override
-    protected void successfulAuthentication(HttpServletRequest request,
-                                            HttpServletResponse response,
-                                            FilterChain chain,
-                                            Authentication authResult) throws IOException {
+    protected void successfulAuthentication(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain chain,
+            Authentication authResult) throws IOException {
 
         JwtUser jwtUser = (JwtUser) authResult.getPrincipal();
         boolean isRemember = rememberMe.get() == 1;
@@ -80,9 +92,13 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.getWriter().write(JSON.toJSONString(new ReturnT<>(maps)));
     }
 
+    // 验证失败
     @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+    protected void unsuccessfulAuthentication(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            AuthenticationException failed) throws IOException, ServletException {
         response.setCharacterEncoding("UTF-8");
-        //response.getWriter().write(JSON.toJSON(new ReturnT<String>(ReturnT.FAIL_CODE, I18nUtil.getString("login_param_invalid"))).toString());
+        response.getWriter().write("authentication failed, reason: " + failed.getMessage());
     }
 }

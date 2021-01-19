@@ -1,5 +1,6 @@
-package com.deerlili.mp.entity;
+package com.deerlili.mp.dto;
 
+import com.deerlili.mp.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

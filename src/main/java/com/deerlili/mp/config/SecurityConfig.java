@@ -17,7 +17,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
+import java.util.Arrays;
+
+/**
+ * 配置SpringSecurity
+ */
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -26,11 +32,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    //注册UserDetailsService的bean
     @Bean
-    UserDetailsService customUserService() { //注册UserDetailsService 的bean
+    UserDetailsService customUserService() {
         return new UserDetailsServiceImpl();
     }
-
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -42,33 +48,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 
+    // 访问配置
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/static/**", "/index.html", "/favicon.ico", "/avatar.jpg").permitAll()
-                // 开发阶段可以开启接口访问
-                .antMatchers("/api/*").permitAll()
-                //.antMatchers("/mp/user/*").permitAll()
-                //允许匿名及登录用户访问
-                .antMatchers("/api/auth/**", "/error/**").permitAll()
-                .antMatchers("/api/callback", "/api/processCallback", "/api/registry", "/api/registryRemove").permitAll()
+                // 放行-permitAll()
+                // 登录信息
+                .antMatchers("/static/**","/index.html","/favicon.ico", "/avatar.jpg").permitAll()
+                // 接口-开发阶段可以开启接口访问，上线关闭
+                // .antMatchers("/api/*").permitAll()
+                .antMatchers("/mp/user/*").permitAll()
+                // Swagger信息和外部包
                 .antMatchers("/doc.html", "/swagger-resources/**", "/webjars/**", "/*/api-docs").anonymous()
+                // 其他请求需要验证
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                // 不需要session
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
+    // 解决跨域问题
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(Arrays.asList("*"));
         config.addAllowedMethod("*");
         config.applyPermitDefaultValues();
         source.registerCorsConfiguration("/**", config);
         return source;
     }
-
 }

@@ -1,4 +1,4 @@
-package com.deerlili.mp.entity;
+package com.deerlili.mp.dto;
 
 import lombok.Data;
 

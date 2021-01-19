@@ -1,7 +1,7 @@
 package com.deerlili.mp.service.impl;
 
 import com.deerlili.mp.dao.UserMapper;
-import com.deerlili.mp.entity.JwtUser;
+import com.deerlili.mp.dto.JwtUser;
 import com.deerlili.mp.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

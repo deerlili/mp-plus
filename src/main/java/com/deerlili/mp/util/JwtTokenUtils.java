@@ -13,18 +13,18 @@ import java.util.List;
 
 public class JwtTokenUtils {
 
+    // token的头部
     public static final String TOKEN_HEADER = "Authorization";
+    // token的前缀
     public static final String TOKEN_PREFIX = "Bearer ";
-
+    // 用户密钥
     private static final String SECRET = "deerlili_admin";
+    // JWT的签发者
     private static final String ISS = "admin";
-
     // 角色的key
     private static final String ROLE_CLAIMS = "rol";
-
     // 过期时间是3600秒，既是24个小时
     private static final long EXPIRATION = 86400L;
-
     // 选择了记住我之后的过期时间为7天
     private static final long EXPIRATION_REMEMBER = 7 * EXPIRATION;
 
@@ -35,11 +35,11 @@ public class JwtTokenUtils {
         map.put(ROLE_CLAIMS, role);
         return Jwts.builder()
                 .signWith(SignatureAlgorithm.HS512, SECRET)
-                .setClaims(map)
-                .setIssuer(ISS)
-                .setSubject(id + "," + username)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))
+                .setClaims(map) // 角色的授权
+                .setIssuer(ISS) // JWT的签发者
+                .setSubject(id + "," + username) // JWT所面向的用户
+                .setIssuedAt(new Date()) // 签发时间
+                .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000)) // 过期时间
                 .compact();
     }
 

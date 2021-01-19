@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface UserMapper extends BaseMapper<User> {
 
+    // 用户登录
     User loadByUserName(@Param("username") String username);
 
 }
