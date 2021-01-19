@@ -1,57 +1,61 @@
 package com.deerlili.mp.entity;
 
-import com.baomidou.mybatisplus.annotation.*;
-import lombok.Data;
-
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
+import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 /**
  * @author deerlili
- * @version v1.0
- * @description 用户信息
- * @Time 2021-01-15 23:47
+ * @since 2021-01-19
  */
-
 @Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
 @TableName("mp_user")
-public class User {
+@ApiModel(value="User对象", description="")
+public class User implements Serializable {
 
-    @TableId
+    private static final long serialVersionUID=1L;
+
+    @ApiModelProperty(value = "主键")
     private Long id;
-    @TableField(value = "name",condition = SqlCondition.LIKE)
-    private String userName;
-    @TableField(condition = "%s&lt;#{%s}")
+
+    @ApiModelProperty(value = "姓名")
+    private String username;
+
+    @ApiModelProperty(value = "密码")
+    private String password;
+
+    @ApiModelProperty(value = "年龄")
     private Integer age;
+
+    @ApiModelProperty(value = "邮箱")
     private String email;
+
+    @ApiModelProperty(value = "上级id")
     private Long managerId;
-    @TableField(fill = FieldFill.INSERT)
+
+    @ApiModelProperty(value = "权限id")
+    private Long roleId;
+
+    @ApiModelProperty(value = "版本")
+    private Long version;
+
+    @ApiModelProperty(value = "0:未删除,1:删除")
+    @TableLogic
+    private Long status;
+
+    @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+
+    @ApiModelProperty(value = "更新时间")
     private LocalDateTime updateTime;
-    // 逻辑删除：默认（0：未删除，1：删除）
-    // value:未删除,delval:删除
-    @TableLogic(value = "0",delval = "2")
-    // 查询不显示
-    @TableField(select = false)
-    private Integer status;
-    /**
-     * 用于保存一些程序调用或者组装的数据
-     * 在数据中没有对应的字段
-     */
-    private transient String remark;
-    /**
-     * 需要生成set、get
-     */
-    private static String remark1;
-    @TableField(exist = false)
-    private static String remark2;
 
-    public static String getRemark1() {
-        return remark1;
-    }
-
-    public static void setRemark1(String remark1) {
-        User.remark1 = remark1;
-    }
 
 }

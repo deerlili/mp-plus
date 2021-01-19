@@ -121,7 +121,7 @@ public class CodeGenerator {
         strategy.setControllerMappingHyphenStyle(true);
         // 去掉表中前缀
         //strategy.setTablePrefix(pc.getModuleName() + "_");
-        strategy.setTablePrefix("t_");
+        strategy.setTablePrefix("mp_");
         mpg.setStrategy(strategy);
         mpg.execute();
     }

@@ -1,16 +1,23 @@
-create table user(
-                     id bigint(20) primary key not null comment '主键',
-                     name varchar(20) default null comment '姓名',
-                     age int(11) default null comment '年龄',
-                     email varchar(50) default null comment '邮箱',
-                     manager_id bigint(20) default null comment '上级id',
-                     create_time datetime default null comment '创建时间'
-) ENGINE=INNODB CHARSET=UTF8;
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
 
--- 外键参照本表的ID
-insert into user(id,name,age,email,manager_id,create_time)
-VALUES
-(1,'老板',30,'dd1@163.com',NULL,'2020-08-12 00:00:12'),
-(2,'小碗',30,'dd2@163.com',NULL,'2020-08-12 10:00:12'),
-(3,'小胖',30,'dd3@163.com',NULL,'2020-08-12 11:00:12'),
-(4,'小米',30,'dd4@163.com',NULL,'2020-08-12 13:00:12');
+-- ----------------------------
+-- Table structure for mp_user
+-- ----------------------------
+DROP TABLE IF EXISTS `mp_user`;
+CREATE TABLE `mp_user`  (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `username` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '姓名',
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '密码',
+  `age` int(11) NULL DEFAULT NULL COMMENT '年龄',
+  `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮箱',
+  `manager_id` bigint(20) NULL DEFAULT NULL COMMENT '上级id',
+  `role_id` bigint(20) DEFAULT 0 COMMENT '权限id',
+  `version` bigint(20) DEFAULT 0 COMMENT '版本',
+  `status` bigint(20) DEFAULT 0 COMMENT '（0：未删除，1：删除）',
+  `create_time` datetime(0) DEFAULT NOW() COMMENT '创建时间',
+  `update_time` datetime(0) DEFAULT NOW() COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+SET FOREIGN_KEY_CHECKS = 1;
