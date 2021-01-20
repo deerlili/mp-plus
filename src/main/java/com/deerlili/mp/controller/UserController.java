@@ -40,6 +40,5 @@ public class UserController {
         userMapper.insert(user);
         return "success";
     }
-
 }
 

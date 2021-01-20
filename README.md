@@ -1,11 +1,8 @@
 # mp-plus
-项目基本模板
-
+后端项目开发基本模板，集成了后端的常用开发的组件
 # 相关技术
 - Spring-Boot
-- MyBatis-plus
-- Swagger
+- MyBatis-Plus
+- Swagger-Ui
 - SpringSecurity
 - JWT
-
-

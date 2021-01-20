@@ -38,10 +38,10 @@ public class SwaggerConfig implements WebMvcConfigurer {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("MP Web Api Docs")
-                .description("MP Web Api Docs")
+                .description("MP后端接口文档说明")
                 .contact(contact())
                 .termsOfServiceUrl("http://localhost:8080")
-                .version("version 2.0.0")
+                .version("v.2.1")
                 .license("@重庆半山智能科技有限公司")
                 .licenseUrl("baidu.com")
                 .build();
