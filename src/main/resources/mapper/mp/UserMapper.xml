@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.deerlili.mp.dao.UserMapper">
-    <select id="loadByUserName"  resultType="com.deerlili.mp.entity.User">
-        SELECT *
-        FROM mp_user AS t
-        WHERE t.username = #{username}
+    <select id="loadByUserName"  resultType="User">
+        SELECT * FROM mp_user WHERE username = #{username}
+    </select>
+    <select id="selectAll" resultType="User">
+        select * from mp_user ${ew.customSqlSegment}
+    </select>
+    <select id="selectUserPage" resultType="User">
+        select * from mp_user ${ew.customSqlSegment}
     </select>
 
 </mapper>

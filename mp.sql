@@ -12,12 +12,15 @@ CREATE TABLE `mp_user`  (
   `age` int(11) NULL DEFAULT NULL COMMENT '年龄',
   `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮箱',
   `manager_id` bigint(20) NULL DEFAULT NULL COMMENT '上级id',
-  `role_id` bigint(20) DEFAULT 0 COMMENT '权限id',
-  `version` bigint(20) DEFAULT 0 COMMENT '版本',
-  `status` bigint(20) DEFAULT 0 COMMENT '（0：未删除，1：删除）',
+  `role_id` int DEFAULT 0 COMMENT '权限id',
+  `status` tinyint DEFAULT 0 COMMENT '状态',
+  `version` tinyint DEFAULT 0 COMMENT '版本',
+  `is_delete` tinyint DEFAULT 0 COMMENT '（0：未删除，1：删除）',
   `create_time` datetime(0) DEFAULT NOW() COMMENT '创建时间',
   `update_time` datetime(0) DEFAULT NOW() COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+alter table mp_user change column id id bigint(20) auto_increment;

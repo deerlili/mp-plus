@@ -49,6 +49,7 @@ public class CodeGenerator {
         gc.setSwagger2(true);
         // 自定义文件命名，注意 %s 会自动填充表实体属性！
         // gc.setMapperName("%sMapper");
+        gc.setServiceName("%sService");
         mpg.setGlobalConfig(gc);
 
         // 数据源配置

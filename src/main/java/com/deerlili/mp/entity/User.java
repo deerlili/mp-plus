@@ -1,9 +1,11 @@
 package com.deerlili.mp.entity;
 
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,11 +21,12 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("mp_user")
 @ApiModel(value="User对象", description="")
-public class User implements Serializable {
+public class User extends Model<User> implements Serializable {
 
     private static final long serialVersionUID=1L;
 
     @ApiModelProperty(value = "主键")
+    @TableId(type = IdType.NONE)
     private Long id;
 
     @ApiModelProperty(value = "姓名")
@@ -44,17 +47,21 @@ public class User implements Serializable {
     @ApiModelProperty(value = "权限id")
     private Long roleId;
 
+    @ApiModelProperty(value = "状态")
+    private Long status;
+
     @ApiModelProperty(value = "版本")
     private Long version;
 
     @ApiModelProperty(value = "0:未删除,1:删除")
-    @TableLogic
-    private Long status;
+    private Long isDelete;
 
     @ApiModelProperty(value = "创建时间")
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "更新时间")
+    @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
 
 

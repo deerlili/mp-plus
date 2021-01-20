@@ -12,18 +12,27 @@ spring:
 logging:
   level:
     ## 根日志
-    root: info # info warn
+    root: warn # info warn
     ## trace:日志最低级别
     com.deerlili.mp.dao: trace
   ## 日志输出格式
-  #pattern:
+  pattern:
     ## %p:日志级别 %m:具体内容 %n:换行 还有其他的
-    #console: '%p%m%n'
+    console: '%p%m%n'
 
 # mybatis-plus 配置
 mybatis-plus:
   # mapper.xml文件扫描
   mapper-locations: classpath*:/mapper/mp/*Mapper.xml
+  # MyBaits别名包扫描路径
+  typeAliasesPackage: com.deerlili.mp.entity
+  global-config:
+    db-config:
+      id-type: auto # uuid
+      logic-delete-field: isDelete
+      logic-delete-value: 1 # 默认1
+      logic-not-delete-value: 0 # 默认0
+      # table-prefix: mp_ # 或者在实体上设置
 
 # 配置swagger登陆验证
 swagger:
