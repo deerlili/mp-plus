@@ -24,3 +24,9 @@ CREATE TABLE `mp_user`  (
 SET FOREIGN_KEY_CHECKS = 1;
 
 alter table mp_user change column id id bigint(20) auto_increment;
+
+-- 乐观锁
+update mp_user set version = newVersion,x = a,y = b
+where version = oldVersion and z= c;
+
+

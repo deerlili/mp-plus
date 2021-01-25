@@ -31,8 +31,9 @@ public class SelectPageTest {
     @Test
     public void selectPage1() {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lt("age",40);
-        Page<User> iPage = new Page<>(1,3, false);
+        queryWrapper.gt("age",25);
+        // false 不开启统计信息，总页数和总记录数等
+        Page<User> iPage = new Page<>(1,3, true);
         IPage<User> userIPage = userMapper.selectPage(iPage, queryWrapper);
         System.out.println("总页数：" + userIPage.getPages());
         System.out.println("总记录：" + userIPage.getTotal());

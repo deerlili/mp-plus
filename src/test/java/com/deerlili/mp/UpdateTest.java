@@ -1,5 +1,6 @@
 package com.deerlili.mp;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -28,8 +29,10 @@ public class UpdateTest {
     @Test
     public void updateById() {
         User user = new User();
-        user.setId(2L);
+        user.setId(4L);
         user.setEmail("update@163.com");
+        // 乐观锁实现
+        user.setVersion(0L); // 这里0假设是从数据库查询出来的
         int i = userMapper.updateById(user);
         System.out.println("影响记录数据：" + i);
     }

@@ -51,6 +51,7 @@ public class User extends Model<User> implements Serializable {
     private Long status;
 
     @ApiModelProperty(value = "版本")
+    @Version
     private Long version;
 
     @ApiModelProperty(value = "0:未删除,1:删除")

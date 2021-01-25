@@ -1,0 +1,3 @@
+ Consume Time：53 ms 2021-01-21 23:32:40
+ Execute SQL：SELECT id,username,password,age,email,manager_id,role_id,status,version,is_delete,create_time,update_time FROM mp_user WHERE id=1 AND is_delete=0
+
